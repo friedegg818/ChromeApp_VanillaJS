@@ -5,7 +5,23 @@ const toDoForm = document.querySelector(".js-toDoForm"),
 const TODOS_LS = 'toDos'
 
 // 해야 할 일을 생성 할 때 마다 이곳에 저장 
-const toDos = [];
+let toDos = [];
+
+function deleteToDo(event) {
+    // HTML에서 삭제 
+    const btn = event.target;
+    const li = btn.parentNode;
+    toDoList.removeChild(li);
+
+    // localStroage에서 완전히 삭제 
+    // filter : array의 모든 아이템을 통해 함수를 실행 하고 true인 아이템들만 가지고 새로운 array를 만듦 
+    const cleanToDos = toDos.filter(function(toDo){
+        return toDo.id !== parseInt(li.id);
+    });
+
+    toDos = cleanToDos;
+    saveToDos();
+}
 
 function saveToDos() {
     // localStorage 는 자바스크립트의 Data를 저장 할 수 없음. String만 저장 
@@ -21,11 +37,12 @@ function paintToDo(text) {
     const newId = toDos.length + 1;
 
     delBtn.innerHTML = "❌";
+    delBtn.addEventListener("click", deleteToDo);
     span.innerText = text;
 
     // li 속에 넣기 
-    li.appendChild(span);
     li.appendChild(delBtn);
+    li.appendChild(span);
     li.id = newId;
     
     // li 추가
