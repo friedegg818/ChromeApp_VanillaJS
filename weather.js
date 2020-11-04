@@ -1,3 +1,4 @@
+// open API 사이트에서 받은 KEY 코드 입력 
 const API_KEY = "92014bb042cf34f71371c60e82477360";
 const COORDS = "coords";
 
@@ -16,7 +17,8 @@ function handleGeoSucces(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     const coordsObj = {
-        latitude, longitude
+        latitude, 
+        longitude
     };
     saveCoords(coordsObj);
     getWeather(latitude, longitude)
